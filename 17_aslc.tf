@@ -7,7 +7,7 @@ resource "aws_launch_configuration" "khchoi_aslc" {
   key_name = "khchoi2_key"
 #  user_data =  없음으로 패스
 
-  lifecycle {
-    create_before_destroy = true
-  }
+  #lifecycle {
+  #  create_before_destroy = true
+  #}
 }
