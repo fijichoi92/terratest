@@ -41,3 +41,7 @@ resource "aws_eip" "khchoi_weba_ip" {
     aws_internet_gateway.khchoi_ig
   ]
 }
+
+output "public_ip" {
+  value = aws_instance.khchoi_web.public_ip
+}
