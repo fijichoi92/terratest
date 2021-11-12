@@ -37,3 +37,23 @@ resource "aws_subnet" "khchoi_pric" {
     "Name" = "khchoi-pric"
   }
 }
+
+#가용영역 a의 Private DB subnet
+resource "aws_subnet" "khchoi_pridba" {
+  vpc_id = aws_vpc.khchoi_vpc.id
+  cidr_block = "10.0.4.0/24"
+  availability_zone = "ap-northeast-2a"
+  tags = {
+    "Name" = "khchoi-pridba"
+  }
+}
+
+#가용영역 c의 Private DB subnet
+resource "aws_subnet" "khchoi_pridbc" {
+  vpc_id = aws_vpc.khchoi_vpc.id
+  cidr_block = "10.0.5.0/24"
+  availability_zone = "ap-northeast-2c"
+  tags = {
+    "Name" = "khchoi-pridbc"
+  }
+}
