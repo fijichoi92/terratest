@@ -24,13 +24,7 @@ resource "aws_instance" "khchoi_web" {
   private_ip = "10.0.0.11"
   subnet_id = aws_subnet.khchoi_puba.id
   vpc_security_group_ids = [aws_security_group.khchoi_sg.id]
-  user_data = <<-EOF
-                #!/bin/bash
-                sudo su -
-                yum install -y httpd
-                echo "KHCHOI-Terraform-1" >> /var/www/html/index.html
-                systemctl start httpd
-                EOF
+  user_data = file("./install.sh")
 }
 
 resource "aws_eip" "khchoi_weba_ip" {
@@ -40,8 +34,4 @@ resource "aws_eip" "khchoi_weba_ip" {
   depends_on = [
     aws_internet_gateway.khchoi_ig
   ]
-}
-
-output "public_ip" {
-  value = aws_instance.khchoi_web.public_ip
 }
