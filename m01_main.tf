@@ -37,7 +37,7 @@ resource "aws_subnet" "khchoi_pri" {
   }
 }
 
-#가용영역의 Private DB subnet
+#가용영역의 Private DB subnett
 resource "aws_subnet" "khchoi_pridb" {
   count             = length(var.cidr_privatedb)
   vpc_id            = aws_vpc.khchoi_vpc.id
