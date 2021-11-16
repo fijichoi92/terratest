@@ -10,7 +10,7 @@ resource "aws_internet_gateway" "khchoi_ig" {
 resource "aws_route_table" "khchoi_rt" {
   vpc_id = aws_vpc.khchoi_vpc.id
 
-  route  {
+  route {
     cidr_block = var.cidr_route
     gateway_id = aws_internet_gateway.khchoi_ig.id
   }
@@ -19,8 +19,8 @@ resource "aws_route_table" "khchoi_rt" {
   }
 }
 
-resource "aws_route_table_association" "khchoi_rtas"{
-  count = length(var.cidr_public)
+resource "aws_route_table_association" "khchoi_rtas" {
+  count          = length(var.cidr_public)
   subnet_id      = aws_subnet.khchoi_pub[count.index].id
   route_table_id = aws_route_table.khchoi_rt.id
 }
