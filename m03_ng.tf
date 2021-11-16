@@ -27,7 +27,7 @@ resource "aws_route_table" "khchoi_ngrt" {
 }
 
 resource "aws_route_table_association" "khchoi_ngrtas" {
-  count          = length(var.cidr_public)
+  count          = length(var.cidr_private)
   subnet_id      = aws_subnet.khchoi_pri[count.index].id
   route_table_id = aws_route_table.khchoi_ngrt.id
 }
