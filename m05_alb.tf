@@ -1,9 +1,9 @@
 resource "aws_lb" "khchoi_alb" {
-  name = "khchoi-alb"
-  internal = false
+  name               = "khchoi-alb"
+  internal           = false
   load_balancer_type = var.lb_type
-  security_groups = [aws_security_group.khchoi_sg.id]
-  subnets = [aws_subnet.khchoi_pub[0].id,aws_subnet.khchoi_pub[1].id]
+  security_groups    = [aws_security_group.khchoi_sg.id]
+  subnets            = [aws_subnet.khchoi_pub[0].id, aws_subnet.khchoi_pub[1].id]
 
   tags = {
     "Name" = "${var.name}-alb"
@@ -11,11 +11,11 @@ resource "aws_lb" "khchoi_alb" {
 }
 
 resource "aws_lb_target_group" "khchoi_albtg" {
-  name      = "khchoi-albtg"
-  port      = var.port_http
-  protocol  = var.protocol_http1
+  name     = "khchoi-albtg"
+  port     = var.port_http
+  protocol = var.protocol_http1
   # target_type은 default가 "instance"여서 따로 지정안함.
-  vpc_id    = aws_vpc.khchoi_vpc.id
+  vpc_id = aws_vpc.khchoi_vpc.id
 
   health_check {
     enabled             = true
@@ -36,13 +36,13 @@ output "alb_dns" {
 
 resource "aws_lb_listener" "khchoi_albli" {
   load_balancer_arn = aws_lb.khchoi_alb.arn
-  port = var.port_http
-  protocol = var.protocol_http1
-# HTTPS가 아니라서 ssl_policy, certificate_arn은 생략
+  port              = var.port_http
+  protocol          = var.protocol_http1
+  # HTTPS가 아니라서 ssl_policy, certificate_arn은 생략
 
   default_action {
-  type = "forward"
-  target_group_arn = aws_lb_target_group.khchoi_albtg.arn
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.khchoi_albtg.arn
   }
 }
 
